@@ -55,14 +55,12 @@
 
     /* ── Layout ── */
     .page {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem;
+      max-width: none;
+      margin: 0;
+      padding: 5rem 3rem 6rem;
       display: grid;
       grid-template-columns: 220px 1fr;
-      gap: 0 3.5rem;
-      padding-top: 5rem;
-      padding-bottom: 6rem;
+      gap: 0 4.5rem;
     }
 
     /* ── Sidebar ── */
@@ -333,13 +331,13 @@
       z-index: 10;
       background: var(--bg);
       border-bottom: 1px solid var(--rule);
-      padding: 0 2rem;
+      padding: 0 3rem;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
 
     .topnav-inner {
-      max-width: 860px;
-      margin: 0 auto;
+      max-width: none;
+      margin: 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -491,10 +489,9 @@
       <div class="topnav-right">
         <ul class="topnav-links">
           <li><a href="#about">About</a></li>
-          <li><a href="#featured">Featured</a></li>
+          <li><a href="#projects">Projects</a></li>
           <li><a href="#publications">Publications</a></li>
           <li><a href="#education">Education</a></li>
-          <li><a href="https://github.com/SahanDew" target="_blank" rel="noopener noreferrer">GitHub</a></li>
         </ul>
         <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -514,9 +511,8 @@
     <aside class="sidebar">
       <div class="avatar-wrap">
         <img
-          src="https://github.com/SahanDew.png"
+          src="profile.png"
           alt="Sahan Dewasinghe"
-          onerror="this.style.display='none'"
         />
       </div>
 
@@ -582,9 +578,9 @@
         </div>
       </section>
 
-      <!-- Featured Projects -->
-      <section id="featured">
-        <p class="section-title">Featured Projects</p>
+      <!-- Projects -->
+      <section id="projects">
+        <p class="section-title">Projects</p>
         <div class="featured-grid">
 
           <a class="feat-card" href="https://unipulse-mu.vercel.app/" target="_blank" rel="noopener noreferrer">
@@ -649,18 +645,6 @@
             <span class="entry-name">BSc (Hons) in Artificial Intelligence</span>
             <span class="entry-meta">2024 – present</span>
             <p class="entry-desc">University of Moratuwa · Moratuwa, Sri Lanka</p>
-          </div>
-
-          <div class="entry">
-            <span class="entry-name">High School Diploma, Computer Science</span>
-            <span class="entry-meta">2015 – 2023</span>
-            <p class="entry-desc">Sivali Central College · O/L with 9A's (Maths, English, Science, ICT); A/L with 3A's (ICT, Combined Maths, Physics)</p>
-          </div>
-
-          <div class="entry">
-            <span class="entry-name">Marketing</span>
-            <span class="entry-meta">2024</span>
-            <p class="entry-desc">The University of British Columbia · Vancouver, Canada</p>
           </div>
 
           <div class="entry">
