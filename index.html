@@ -205,27 +205,22 @@
     }
 
     .feat-card {
-      text-decoration: none;
-      color: inherit;
       display: block;
-      transition: opacity 0.15s;
     }
-
-    .feat-card:hover { opacity: 0.55; }
 
     .feat-thumb {
       aspect-ratio: 1;
       background: var(--tag-bg);
       border: 1px solid var(--rule);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.85rem;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      color: var(--muted);
+      overflow: hidden;
       margin-bottom: 0.65rem;
+    }
+
+    .feat-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .feat-title {
@@ -255,7 +250,33 @@
       opacity: 0.85;
     }
 
-    /* ── Publications & Education lists ── */
+    .feat-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.55rem;
+    }
+
+    .feat-live,
+    .feat-gh {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--rule);
+      padding: 0.2rem 0.45rem;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .feat-live:hover,
+    .feat-gh:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    /* ── Articles & Education lists ── */
     .entry-list { display: flex; flex-direction: column; gap: 0; }
 
     .entry {
@@ -320,6 +341,19 @@
       letter-spacing: 0.04em;
       padding-top: 2rem;
       border-top: 1px solid var(--rule);
+    }
+
+    .footer a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color 0.15s;
+    }
+
+    .footer a:hover { color: var(--ink); }
+
+    .footer-credit {
+      margin-top: 0.5rem;
     }
 
     /* ── Nav ── */
@@ -388,6 +422,41 @@
     }
 
     .topnav-links a:hover { color: var(--ink); }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: 1px solid var(--rule);
+      background: transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 14px;
+      height: 1.5px;
+      margin: 0 auto;
+      background: var(--muted);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .topnav.open .nav-toggle span:nth-child(1) {
+      transform: translateY(5.5px) rotate(45deg);
+    }
+
+    .topnav.open .nav-toggle span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .topnav.open .nav-toggle span:nth-child(3) {
+      transform: translateY(-5.5px) rotate(-45deg);
+    }
 
     .theme-toggle {
       flex-shrink: 0;
@@ -466,7 +535,35 @@
         padding: 0 1.25rem;
       }
 
-      .topnav-links { gap: 1.2rem; }
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .topnav-links {
+        display: none;
+        position: absolute;
+        top: 3.2rem;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        padding: 0.75rem 1.25rem 1rem;
+        background: var(--bg);
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .topnav.open .topnav-links {
+        display: flex;
+      }
+
+      .topnav-links li {
+        width: 100%;
+      }
+
+      .topnav-links a {
+        width: 100%;
+        padding: 0.55rem 0;
+      }
 
       .entry {
         grid-template-columns: 1fr;
@@ -490,9 +587,14 @@
         <ul class="topnav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>
-          <li><a href="#publications">Publications</a></li>
+          <li><a href="#articles">Articles</a></li>
           <li><a href="#education">Education</a></li>
         </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
@@ -530,11 +632,11 @@
       <p class="sidebar-section-label">Links</p>
       <ul class="sidebar-links">
         <li>
-          <a href="https://github.com/SahanDew" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/sahandewasinghe" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
             </svg>
-            SahanDew
+            sahandewasinghe
           </a>
         </li>
         <li>
@@ -546,7 +648,7 @@
           </a>
         </li>
         <li>
-          <a href="mailto:sahandewasinghe@gmail.com">
+          <a href="mailto:sahanidewasinghe@gmail.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
             </svg>
@@ -564,16 +666,14 @@
         <p class="section-title">About</p>
         <div class="bio">
           <p>
-            Hello! I'm an undergraduate student at the
+            AI undergraduate at the
             <a href="https://uom.lk" target="_blank" rel="noopener noreferrer">University of Moratuwa</a>,
-            studying Artificial Intelligence. I'm interested in the intersection of
-            machine learning and systems — how intelligent models run efficiently at
-            the edge, close to the hardware.
+            focused on machine learning and systems — running intelligent models efficiently at the edge,
+            close to the hardware.
           </p>
           <p>
-            My work spans embedded systems, firmware optimization, and applied ML.
-            I enjoy building things that are both technically rigorous and practically
-            useful — from ESP32 microcontrollers to full-stack AI pipelines.
+            I work across embedded systems, firmware, and applied ML, building tools that are
+            technically sound and useful in practice — from microcontroller firmware to full-stack AI pipelines.
           </p>
         </div>
       </section>
@@ -583,49 +683,83 @@
         <p class="section-title">Projects</p>
         <div class="featured-grid">
 
-          <a class="feat-card" href="https://unipulse-mu.vercel.app/" target="_blank" rel="noopener noreferrer">
-            <div class="feat-thumb">UP</div>
+          <article class="feat-card">
+            <div class="feat-thumb">
+              <img src="images/unipulse.jpeg" alt="UniPulse project thumbnail" />
+            </div>
             <p class="feat-title">UniPulse</p>
-            <p class="feat-sub">Next.js + Supabase · 2026</p>
+            <p class="feat-sub">Next.js + Supabase + n8n · 2026</p>
             <p class="feat-role">Built WhatsApp &amp; Facebook post automations + front/back-end</p>
-          </a>
+            <div class="feat-links">
+              <a class="feat-live" href="https://unipulse-mu.vercel.app/" target="_blank" rel="noopener noreferrer">Live ↗</a>
+              <a class="feat-gh" href="https://github.com/sahandewasinghe" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </article>
 
-          <a class="feat-card" href="https://github.com/tharananejan/theweddingstory-frontend" target="_blank" rel="noopener noreferrer">
-            <div class="feat-thumb">WS</div>
+          <article class="feat-card">
+            <div class="feat-thumb">
+              <img src="images/theweddingstorysl.png" alt="The Wedding Story project thumbnail" />
+            </div>
             <p class="feat-title">The Wedding Story</p>
             <p class="feat-sub">React + Vite · Team project · 2026</p>
-          </a>
+            <div class="feat-links">
+              <a class="feat-live" href="https://tharananejan.github.io/theweddingstory-frontend/" target="_blank" rel="noopener noreferrer">Live ↗</a>
+              <a class="feat-gh" href="https://github.com/tharananejan/theweddingstory-frontend" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </article>
 
-          <a class="feat-card" href="https://github.com/tharananejan/project-record-book-app" target="_blank" rel="noopener noreferrer">
-            <div class="feat-thumb">RB</div>
-            <p class="feat-title">Project Record Book</p>
-            <p class="feat-sub">Vite + JS · Team project · 2026</p>
-          </a>
-
-          <a class="feat-card" href="https://github.com/tharananejan/-airport-operations-system" target="_blank" rel="noopener noreferrer">
-            <div class="feat-thumb">AO</div>
+          <article class="feat-card">
+            <div class="feat-thumb">
+              <img src="images/Airport%20Operating%20system.png" alt="Airport Operations System project thumbnail" />
+            </div>
             <p class="feat-title">Airport Operations System</p>
             <p class="feat-sub">C · Team project · 2026</p>
-          </a>
+            <div class="feat-links">
+              <a class="feat-gh" href="https://github.com/tharananejan/-airport-operations-system" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </article>
 
-          <a class="feat-card" href="https://www.linkedin.com/in/sahandew/" target="_blank" rel="noopener noreferrer">
-            <div class="feat-thumb">SM</div>
+          <article class="feat-card">
+            <div class="feat-thumb">
+              <img src="images/storemanagement.jpg" alt="Store Management App project thumbnail" />
+            </div>
             <p class="feat-title">Store Management App</p>
             <p class="feat-sub">JavaScript + Firebase · Team project · 2024</p>
-          </a>
+            <div class="feat-links">
+              <a class="feat-gh" href="https://github.com/sahandewasinghe" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </article>
 
-          <a class="feat-card" href="https://github.com/SahanDew" target="_blank" rel="noopener noreferrer">
-            <div class="feat-thumb">PF</div>
-            <p class="feat-title">Portfolio</p>
+          <article class="feat-card">
+            <div class="feat-thumb">
+              <img src="images/portfolio.jpeg" alt="Portfolio 2.0 project thumbnail" />
+            </div>
+            <p class="feat-title">Portfolio 2.0</p>
             <p class="feat-sub">Personal Site · 2026</p>
-          </a>
+            <div class="feat-links">
+              <a class="feat-live" href="https://sahandewasinghe.github.io/" target="_blank" rel="noopener noreferrer">Live ↗</a>
+              <a class="feat-gh" href="https://github.com/sahandewasinghe/sahandewasinghe.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </article>
+
+          <article class="feat-card">
+            <div class="feat-thumb">
+              <img src="images/battlebots.jpeg" alt="Battle Bots project thumbnail" />
+            </div>
+            <p class="feat-title">Battle Bots</p>
+            <p class="feat-sub">Hardware · Microcontroller · 2025</p>
+            <p class="feat-role">Bot-fighting build where one bot can run autonomously</p>
+            <div class="feat-links">
+              <a class="feat-gh" href="https://github.com/sahandewasinghe/L1S1-Microcontroller-Based-Project-MSSQ" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </article>
 
         </div>
       </section>
 
-      <!-- Publications -->
-      <section id="publications">
-        <p class="section-title">Publications</p>
+      <!-- Articles -->
+      <section id="articles">
+        <p class="section-title">Articles</p>
         <div class="entry-list">
           <div class="entry">
             <a class="entry-name" href="https://www.linkedin.com/pulse/free-cloud-compute-platforms-ai-beginners-sahan-dewasinghe-pdryc/" target="_blank" rel="noopener noreferrer">Free Cloud Compute Platforms for AI Beginners</a>
@@ -695,7 +829,8 @@
 
       <!-- Footer -->
       <footer class="footer">
-        © 2026 Sahan Dewasinghe · Colombo, Sri Lanka
+        <p>© 2026 Sahan Dewasinghe · Colombo, Sri Lanka</p>
+        <p class="footer-credit">Design inspired by <a href="https://github.com/academicpages/academicpages.github.io" target="_blank" rel="noopener noreferrer">academicpages</a>.</p>
       </footer>
 
     </main>
@@ -708,6 +843,24 @@
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
     });
+
+    (function () {
+      const nav = document.querySelector('.topnav');
+      const toggle = document.querySelector('.nav-toggle');
+      const links = document.querySelectorAll('.topnav-links a');
+
+      toggle.addEventListener('click', function () {
+        const isOpen = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      links.forEach(function (link) {
+        link.addEventListener('click', function () {
+          nav.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
   </script>
 
 </body>
